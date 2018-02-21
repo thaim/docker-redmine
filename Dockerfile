@@ -25,6 +25,7 @@ RUN svn export --trust-server-cert --force \
     && chown -R redmine:redmine ./
 
 COPY database.yml /usr/src/redmine/config/database.yml
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 
 RUN buildDeps=' \
@@ -48,4 +49,5 @@ RUN buildDeps=' \
 VOLUME /usr/src/redmine/files
 
 EXPOSE 3000
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["rails", "server", "-b", "0.0.0.0"]
